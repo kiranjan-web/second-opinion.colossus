@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.secondvoice.colossus.android">
+
+    <!-- Network & Server Sync -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Call Interception & Live Call Recording Permissions -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="false"
+        android:label="Second Voice Android Companion"
+        android:usesCleartextTraffic="true">
+
+        <!-- System Call Screening Service (Android 10+ RoleManager.ROLE_CALL_SCREENING) -->
+        <service
+            android:name=".SecondVoiceCallScreeningService"
+            android:exported="true"
+            android:permission="android.permission.BIND_SCREENING_SERVICE">
+            <intent-filter>
+                <action android:name="android.telecom.CallScreeningService" />
+            </intent-filter>
+        </service>
+
+        <!-- Foreground Live Call Audio Chunk Streamer -->
+        <service
+            android:name=".LiveCallAudioBridgeService"
+            android:exported="false"
+            android:foregroundServiceType="microphone" />
+
+        <!-- Ongoing Call OFFHOOK/IDLE State Listener (Incoming & Outgoing Calls) -->
+        <receiver
+            android:name=".CallStateBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+</manifest>

@@ -1,0 +1,6 @@
+{
+  "name": "Second Voice Colossus",
+  "description": "Real-time AI Coercion & Digital Arrest Detection Engine with 7-stage behavioral state machine, spectral voice authenticator, Telegram SOS circuit breaker, and Cyber Cell 1930 PDF reporting.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
